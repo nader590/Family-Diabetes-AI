@@ -698,7 +698,11 @@ if submit:
         else:
             st.error("🔴 High Risk")
 
-    save_user(patient)
+        try:
+            save_user(patient)
+            st.success("Saved to Supabase")
+        except Exception as e:
+            st.error(str(e))
 
     st.divider()
 
