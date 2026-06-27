@@ -1,14 +1,19 @@
 import streamlit as st
 from supabase import create_client
 
-st.write("URL =", st.secrets["SUPABASE_URL"])
-st.write("KEY =", st.secrets["SUPABASE_KEY"][:20])
+SUPABASE_URL = st.secrets["SUPABASE_URL"]
+SUPABASE_KEY = st.secrets["SUPABASE_KEY"]
 
-try:
-    supabase = create_client(
-        st.secrets["SUPABASE_URL"],
-        st.secrets["SUPABASE_KEY"]
+supabase = create_client(
+    SUPABASE_URL,
+    SUPABASE_KEY
+)
+
+def save_user(user):
+    response = (
+        supabase
+        .table("users")
+        .insert(user)
+        .execute()
     )
-    st.success("Connected")
-except Exception as e:
-    st.error(str(e))
+    return response
