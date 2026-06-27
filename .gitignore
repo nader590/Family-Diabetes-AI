@@ -1,0 +1,12 @@
+venv/
+__pycache__/
+
+database/
+reports/
+
+datasets/
+training/
+
+*.db
+*.pdf
+*.png
