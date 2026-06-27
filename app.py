@@ -353,6 +353,7 @@ if submit:
     # Why? — Model-driven narrative explanations
     # ==================================================
     st.subheader("🧠 Why these numbers? (AI Explanation)")
+    st.write(recommendations["narratives"])
 
     for disease_key, disease_label, _ in disease_meta:
         narrative = recommendations["narratives"].get(disease_key, "")

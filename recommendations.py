@@ -178,6 +178,9 @@ def explain_disease(patient: dict, disease: str, top_n: int = 4):
         if abs(shap_val) < 1e-6:
             continue
 
+        if raw_val == 0:
+            continue
+
         contributions.append({
             "feature": feat,
             "label": _label(feat),
