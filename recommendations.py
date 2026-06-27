@@ -38,6 +38,15 @@ DISEASE_MODELS = {
 # Human-readable feature labels
 # ==========================================
 FEATURE_LABELS = {
+    "bmi": "BMI",
+    "exercise_days_per_week": "Physical Activity",
+    "daily_sitting_hours": "Sedentary Lifestyle",
+    "soft_drinks_per_week": "Sugary Drinks",
+    "fast_food_meals_per_week": "Fast Food",
+    "smoking_status_Current": "Smoking",
+    "diabetes_family_score": "Family History",
+    "hypertension_family_score": "Family History",
+    "hyperlipidemia_family_score": "Family History",
     "age": "Age",
     "bmi": "BMI",
     "age_bmi": "Age combined with BMI",
