@@ -74,7 +74,24 @@ FEATURE_LABELS = {
     "father_hyperlipidemia": "Father's cholesterol history",
     "mother_hyperlipidemia": "Mother's cholesterol history",
 }
-
+ALLOWED_EXPLANATION_FEATURES = {
+    "bmi",
+    "diabetes_family_score",
+    "hypertension_family_score",
+    "hyperlipidemia_family_score",
+    "exercise_days_per_week",
+    "daily_sitting_hours",
+    "soft_drinks_per_week",
+    "fast_food_meals_per_week",
+    "sleep_hours",
+    "fatty_liver",
+    "sleep_apnea",
+    "hypertensive",
+    "hyperlipidemia",
+    "smoking_status_Current",
+    "smoking_status_Former",
+    "age",
+}
 
 def _label(feature_name: str) -> str:
     if feature_name in FEATURE_LABELS:
@@ -146,6 +163,10 @@ def explain_disease(patient: dict, disease: str, top_n: int = 4):
     for feat, shap_val, raw_val in zip(df.columns, values, row):
 
         feat_lower = feat.lower()
+        base_feat = feat
+
+        if base_feat not in ALLOWED_EXPLANATION_FEATURES:
+            continue
 
         # Ignore technical / missing-value features
         if (
@@ -490,6 +511,9 @@ class RecommendationEngine:
         narratives = {
             d: build_narrative(d, explanations[d], what_if) for d in diseases
         }
+        print("\n=== NARRATIVES ===")
+        print(narratives)
+        print("==================\n")
 
         # Backward-compatible flat "reasons" list (now model-driven, not static)
         reasons = []
