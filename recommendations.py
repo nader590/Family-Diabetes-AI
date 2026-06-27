@@ -144,8 +144,19 @@ def explain_disease(patient: dict, disease: str, top_n: int = 4):
     row = df.iloc[0]
     contributions = []
     for feat, shap_val, raw_val in zip(df.columns, values, row):
+
+        feat_lower = feat.lower()
+
+        # Ignore technical / missing-value features
+        if (
+            "_was_missing" in feat_lower
+            or "_unknown" in feat_lower
+        ):
+            continue
+
         if abs(shap_val) < 1e-6:
             continue
+
         contributions.append({
             "feature": feat,
             "label": _label(feat),
