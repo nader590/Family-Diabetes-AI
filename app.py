@@ -54,11 +54,11 @@ st.markdown("""
 .block-container{ padding-top:2rem; padding-bottom:2rem; }
 
 div[data-testid="metric-container"]{
-    border-radius:15px;
     padding:20px;
-    border:1px solid #E5E7EB;
-    background:#F8FAFC;
     box-shadow:0px 4px 15px rgba(0,0,0,.08);
+    background:#111827;
+    color:#F9FAFB;
+    border:1px solid #374151;
 }
 
 .stButton>button{
@@ -83,21 +83,23 @@ div[data-testid="metric-container"]{
 }
 
 .factor-card{
-    background:#F8FAFC;
-    border:1px solid #E5E7EB;
+    background:#111827;
+    border:1px solid #374151;
     border-radius:12px;
     padding:14px 18px;
     margin-bottom:8px;
+    color:#F9FAFB;
 }
 
 .narrative-box{
-    background:#EFF6FF;
     border-left:4px solid #2563EB;
     border-radius:8px;
     padding:16px 20px;
     margin-bottom:14px;
     white-space:pre-line;
     font-size:15px;
+    background:#1E293B;
+    color:#F8FAFC;
 }
 </style>
 """, unsafe_allow_html=True)

@@ -421,6 +421,8 @@ def run_what_if(patient: dict, results: dict):
         before_pct = results[f"{primary_disease}_probability"] * 100
         after_pct = new_results[f"{primary_disease}_probability"] * 100
         reduction = round(before_pct - after_pct, 1)
+        if abs(reduction) < 0.1:
+            continue
 
         scenario_results.append({
             "label": label,
@@ -455,21 +457,55 @@ def build_narrative(disease: str, explanation: dict, what_if_best):
     lines = []
 
     contributing = explanation.get("contributing", [])
+    protective = explanation.get("protective", [])
+
     if contributing:
-        factor_strs = [f"{c['label']} ({c['value_display']})" for c in contributing[:3]]
-        lines.append(f"Your {pretty.lower()} risk is mainly driven by:")
+
+        factor_strs = [
+            f"{c['label']} ({c['value_display']})"
+            for c in contributing[:3]
+        ]
+
+        lines.append(
+            f"Your {pretty.lower()} risk is mainly influenced by:"
+        )
+
         for f in factor_strs:
             lines.append(f"- {f}")
+
+    elif protective:
+
+        factor_strs = [
+            f"{c['label']} ({c['value_display']})"
+            for c in protective[:3]
+        ]
+
+        lines.append(
+            f"Your {pretty.lower()} risk is currently low because of:"
+        )
+
+        for f in factor_strs:
+            lines.append(f"- {f}")
+
     else:
-        lines.append(f"No single dominant driver was found for {pretty.lower()} risk.")
+
+        lines.append(
+            f"No dominant factors were detected."
+        )
 
     if what_if_best and what_if_best["primary_disease"] == disease:
         best = what_if_best["best_action"]
+
         if best:
             lines.append("")
-            lines.append(f"Recommended first action: {best['label']}.")
-            lines.append(f"Expected risk reduction: {_reduction_category(best['reduction_pct'])} "
-                          f"(~{best['reduction_pct']} percentage points).")
+            lines.append(
+                f"Recommended first action: {best['label']}."
+            )
+            lines.append(
+                f"Expected risk reduction: "
+                f"{_reduction_category(best['reduction_pct'])} "
+                f"(~{best['reduction_pct']} percentage points)."
+            )
 
     return "\n".join(lines)
 
