@@ -1,7 +1,7 @@
 import streamlit as st
 from utils.predictor import predictor
 from recommendations import engine
-from database import save_user
+from supabase_db import save_user
 from report import report_generator
 st.set_page_config(
 
