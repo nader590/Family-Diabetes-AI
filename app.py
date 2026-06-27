@@ -355,18 +355,18 @@ if submit:
     # Why? — Model-driven narrative explanations
     # ==================================================
     st.subheader("🧠 Why these numbers? (AI Explanation)")
-    st.write(recommendations["narratives"])
 
     for disease_key, disease_label, _ in disease_meta:
         narrative = recommendations["narratives"].get(disease_key, "")
         with st.expander(f"{disease_label} — explanation"):
+            explanation = recommendations["explanations"][disease_key]
             st.markdown(f'<div class="narrative-box">{narrative}</div>', unsafe_allow_html=True)
 
-            explanation = recommendations["explanations"][disease_key]
-            if explanation["protective"]:
-                st.markdown("**Protective factors:**")
-                for p in explanation["protective"]:
-                    st.write(f"- {p['label']} ({p['value_display']})")
+            if explanation["contributing"]:
+                if explanation["protective"]:
+                    st.markdown("**Protective factors:**")
+                    for p in explanation["protective"]:
+                        st.write(f"- {p['label']} ({p['value_display']})")
 
     st.divider()
 

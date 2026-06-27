@@ -198,7 +198,16 @@ def explain_disease(patient: dict, disease: str, top_n: int = 4):
         [c for c in contributions if c["impact"] < 0],
         key=lambda c: c["impact"]
     )[:top_n]
-
+    PROTECTIVE_ALLOWED = {
+        "age",
+        "exercise_days_per_week",
+        "sleep_hours",
+        "bmi"
+    }
+    protective = [
+    p for p in protective
+    if p["feature"] in PROTECTIVE_ALLOWED
+    ]
     return {"contributing": contributing, "protective": protective, "mode": "shap"}
 
 
